@@ -25,6 +25,8 @@ The Django project package is named `project_config` (not the conventional
 │   ├── devcontainer.json
 │   ├── docker-compose.yml
 │   └── Dockerfile
+├── bin/
+│   └── fix-ports         # Toggles port 8000 visibility to unstick Codespaces 502s
 ├── project_config/       # Django project package (settings, urls, asgi, wsgi)
 │   ├── settings.py
 │   └── urls.py
@@ -80,6 +82,17 @@ port forwarding to expose it on the "Live App Preview" port.
   project-wide `templates/` directory, register it in `TEMPLATES[0]["DIRS"]`.
 - **Static files**: app-local under `<app>/static/<app>/`. `STATIC_URL` is
   already set; use `whitenoise` patterns if you add `STATICFILES_STORAGE`.
+
+## Codespaces port forwarding
+
+Port 8000 is forwarded automatically. Codespaces' port-forward proxy
+occasionally returns **502 Bad Gateway** on the "Live App Preview" URL even
+when `runserver` is healthy. `bin/fix-ports` works around this by toggling
+the port's visibility public → private, which kicks the proxy. It runs
+automatically via the `postAttachCommand` in `.devcontainer/devcontainer.json`
+every time the codespace is attached, so students don't need to invoke it
+manually. If you ever see a 502, re-running `bin/fix-ports` from the terminal
+is the fix.
 
 ## Don't touch unless asked
 
