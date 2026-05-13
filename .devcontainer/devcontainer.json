@@ -1,6 +1,11 @@
 {
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
+  },
   "postCreateCommand": "pip install --user -r requirements.txt",
   "containerEnv": {
     "DATABASE_URL": "postgres://postgres:postgres@db/django_template",
