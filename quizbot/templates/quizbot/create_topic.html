@@ -1,0 +1,14 @@
+{% extends "quizbot/base.html" %}
+
+{% block content %}
+    <h3>Create a New Topic</h3>
+    <form method="post" class="card">
+        {% csrf_token %}
+        <div style="margin-bottom: 1em;">
+            <label for="name">Topic Name:</label><br>
+            <input type="text" id="name" name="name" required style="width: 100%; padding: 0.5em; margin-top: 0.5em; border-radius: 4px; border: 1px solid #ccc;">
+        </div>
+        <button type="submit" class="btn">Create Topic</button>
+        <a href="{% url 'quizbot:home' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

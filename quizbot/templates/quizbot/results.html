@@ -1,0 +1,31 @@
+{% extends "quizbot/base.html" %}
+
+{% block content %}
+    <h3>Quiz Results: {{ quiz.topic.name }}</h3>
+    
+    <div class="card" style="text-align: center;">
+        <p style="font-size: 1.5em;">Your Score: <strong>{{ quiz.score }} / 5</strong></p>
+        <p style="font-size: 1.2em;">Proficiency: <strong>{{ proficiency }}</strong></p>
+        
+        <div style="margin-top: 2em;">
+            <a href="{% url 'quizbot:home' %}" class="btn">Back to Topics</a>
+            <a href="{% url 'quizbot:start_quiz' quiz.topic.id %}" class="btn btn-secondary">Try Again</a>
+        </div>
+    </div>
+
+    <h4>Review Questions:</h4>
+    <ul>
+        {% for q in quiz.questions.all %}
+            <li class="card" style="border-left: 5px solid {% if q.is_correct %}#28a745{% else %}#dc3545{% endif %};">
+                <p><strong>Q: {{ q.text }}</strong></p>
+                <p>Your Answer: {{ q.user_answer }}</p>
+                {% if not q.is_correct %}
+                    <p style="color: #dc3545;">Correct Answer: {{ q.correct_answer }}</p>
+                {% else %}
+                    <p style="color: #28a745;">Correct!</p>
+                {% endif %}
+                <p><small>Difficulty: {{ q.difficulty }}</small></p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
