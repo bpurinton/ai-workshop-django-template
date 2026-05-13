@@ -10,8 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
-import dj_database_url
 from pathlib import Path
+
+import dj_database_url
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,7 +51,24 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "quizbot",
 ]
+
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "quizbot:home"
+LOGOUT_REDIRECT_URL = "login"
+
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {"console": {"class": "logging.StreamHandler"}},
+    "loggers": {
+        "quizbot": {"handlers": ["console"], "level": "WARNING", "propagate": False},
+    },
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
