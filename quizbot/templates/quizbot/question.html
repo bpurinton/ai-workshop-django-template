@@ -1,0 +1,21 @@
+{% extends "quizbot/base.html" %}
+
+{% block content %}
+    <div class="progress">Question {{ progress }} of 5</div>
+    <h3>{{ quiz.topic.name }} Quiz</h3>
+    
+    <div class="card">
+        <p style="font-size: 1.2em;">{{ question.text }}</p>
+        <form method="post">
+            {% csrf_token %}
+            {% for option in question.options %}
+                <label class="option">
+                    <input type="radio" name="answer" value="{{ option }}" required>
+                    {{ option }}
+                </label>
+            {% endfor %}
+            <br>
+            <button type="submit" class="btn">Submit Answer</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "quizbot/base.html" %}
+
+{% block content %}
+    <h3>Select a Topic</h3>
+    <div style="margin-bottom: 2em;">
+        <a href="{% url 'quizbot:create_topic' %}" class="btn">Create New Topic</a>
+    </div>
+
+    {% if topics %}
+        <ul>
+            {% for topic in topics %}
+                <li class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>{{ topic.name }}</strong>
+                        <a href="{% url 'quizbot:start_quiz' topic.id %}" class="btn btn-secondary">Start Quiz</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No topics available yet. Create one to get started!</p>
+    {% endif %}
+{% endblock %}

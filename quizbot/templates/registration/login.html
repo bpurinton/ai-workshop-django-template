@@ -1,0 +1,31 @@
+{% extends "quizbot/base.html" %}
+
+{% block content %}
+    <h3>Login</h3>
+    <form method="post" class="card">
+        {% csrf_token %}
+        {% if form.errors %}
+            <p style="color: red;">Your username and password didn't match. Please try again.</p>
+        {% endif %}
+        
+        <div style="margin-bottom: 1em;">
+            <label for="id_username">Username:</label><br>
+            {{ form.username }}
+        </div>
+        <div style="margin-bottom: 1em;">
+            <label for="id_password">Password:</label><br>
+            {{ form.password }}
+        </div>
+        
+        <button type="submit" class="btn">Login</button>
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+    
+    <div class="card">
+        <p>Sample Users (Password: <strong>quizbot123</strong>):</p>
+        <ul>
+            <li><strong>alice</strong></li>
+            <li><strong>bob</strong></li>
+        </ul>
+    </div>
+{% endblock %}
