@@ -1,0 +1,32 @@
+{
+  "chat.disableAIFeatures": true,
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "workbench.editor.closeOnFileDelete": true,
+  "workbench.fontAliasing": "auto",
+  "workbench.startupEditor": "none",
+  "workbench.tree.renderIndentGuides": "always",
+  "editor.tabSize": 4,
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.bracketPairColorization.enabled": false,
+  "editor.cursorSurroundingLines": 4,
+  "editor.dragAndDrop": false,
+  "editor.guides.bracketPairs": true,
+  "editor.linkedEditing": true,
+  "editor.minimap.enabled": true,
+  "editor.wordWrap": "on",
+  "editor.wrappingIndent": "deepIndent",
+  "files.autoSaveDelay": 500,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.exclude": {
+    "**/.git": true,
+    ".vscode": false,
+    "**/__pycache__": true,
+    "**/*.egg-info": true
+  },
+  "explorer.compactFolders": false,
+  "explorer.incrementalNaming": "smart",
+  "html.format.preserveNewLines": true,
+  "terminal.integrated.altClickMovesCursor": true,
+  "terminal.integrated.defaultProfile.linux": "bash"
+}
