@@ -1,0 +1,29 @@
+{% extends "quizbot/base.html" %}
+{% block title %}Quizbot — pick a topic{% endblock %}
+{% block content %}
+<h2>Start a new quiz</h2>
+<p>Pick any topic. Quizbot will ask {{ NUM_QUESTIONS|default:"5" }} multiple-choice questions of increasing difficulty.</p>
+<form method="post" action="{% url 'quizbot:start' %}">
+    {% csrf_token %}
+    {{ form.topic }}
+    {% if form.topic.errors %}<ul class="errorlist">{% for e in form.topic.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+    <button type="submit">Start quiz</button>
+</form>
+
+{% if quizzes %}
+    <h3 style="margin-top:2rem;">Your previous quizzes</h3>
+    <ul>
+        {% for q in quizzes %}
+            <li>
+                <strong>{{ q.topic }}</strong> — {{ q.created_at|date:"M j, Y H:i" }} —
+                {% if q.is_complete %}
+                    {{ q.score }}/{{ q.NUM_QUESTIONS }} ({{ q.proficiency }})
+                    — <a href="{% url 'quizbot:results' q.id %}">view</a>
+                {% else %}
+                    in progress — <a href="{% url 'quizbot:play' q.id %}">resume</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

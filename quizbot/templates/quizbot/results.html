@@ -1,0 +1,22 @@
+{% extends "quizbot/base.html" %}
+{% block title %}Results — {{ quiz.topic }}{% endblock %}
+{% block content %}
+<h2>Results: {{ quiz.topic }}</h2>
+<p class="score-big">{{ quiz.score }} / {{ quiz.NUM_QUESTIONS }}</p>
+<p>Proficiency: <strong>{{ quiz.proficiency }}</strong></p>
+
+<h3>Question-by-question</h3>
+<ol>
+    {% for q in quiz.questions.all %}
+        <li style="margin-bottom: 1rem;">
+            <div><strong>{{ q.text }}</strong> <span class="difficulty">(difficulty {{ q.difficulty }}/5)</span></div>
+            <div>Your answer: <strong>{{ q.user_answer }}</strong>
+                {% if q.is_correct %}✅{% else %}❌ — correct: <strong>{{ q.correct_answer }}</strong>{% endif %}
+            </div>
+            {% if q.explanation %}<div style="color:#555;">{{ q.explanation }}</div>{% endif %}
+        </li>
+    {% endfor %}
+</ol>
+
+<p><a href="{% url 'quizbot:home' %}">← Back to home</a></p>
+{% endblock %}

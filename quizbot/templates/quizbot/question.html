@@ -1,0 +1,23 @@
+{% extends "quizbot/base.html" %}
+{% block title %}{{ quiz.topic }} — Question {{ question.order }}{% endblock %}
+{% block content %}
+<p class="difficulty">
+    Topic: <strong>{{ quiz.topic }}</strong> · Question {{ question.order }} of {{ total }}
+    · Difficulty {{ question.difficulty }}/5
+</p>
+<h2>{{ question.text }}</h2>
+<form method="post" action="{% url 'quizbot:answer' quiz.id %}">
+    {% csrf_token %}
+    <ul class="choices">
+        {% for letter, choice in question.choices.items %}
+            <li>
+                <label>
+                    <input type="radio" name="answer" value="{{ letter }}" required>
+                    <strong>{{ letter }}.</strong> {{ choice }}
+                </label>
+            </li>
+        {% endfor %}
+    </ul>
+    <button type="submit">Submit answer</button>
+</form>
+{% endblock %}
